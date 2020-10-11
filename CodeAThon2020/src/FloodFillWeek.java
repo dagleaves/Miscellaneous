@@ -34,10 +34,10 @@ public class FloodFillWeek {
 						drains = true;
 						break;
 					}
-					if(SouthDrain(heightmap, currentTile, k, i)) {
-						drains = true;
-						break;
-					}
+//					if(SouthDrain(heightmap, currentTile, k, i)) {
+//						drains = true;
+//						break;
+//					}
 					if(EastDrain(heightmap, currentTile, k, i)) {
 						drains = true;
 						break;
@@ -57,10 +57,10 @@ public class FloodFillWeek {
 						drains = true;
 						break;
 					}
-					if(NorthDrain(heightmap, currentTile, j, k)) {
-						drains = true;
-						break;
-					}
+//					if(NorthDrain(heightmap, currentTile, j, k)) {
+//						drains = true;
+//						break;
+//					}
 					if(EastDrain(heightmap, currentTile, j, k)) {
 						drains = true;
 						break;
@@ -84,10 +84,10 @@ public class FloodFillWeek {
 						drains = true;
 						break;
 					}
-					if(WestDrain(heightmap, currentTile, k, i)) {
-						drains = true;
-						break;
-					}
+//					if(WestDrain(heightmap, currentTile, k, i)) {
+//						drains = true;
+//						break;
+//					}
 					if(NorthDrain(heightmap, currentTile, k, i)) {
 						drains = true;
 						break;
@@ -99,10 +99,10 @@ public class FloodFillWeek {
 				}
 				//West
 				for(int k=0;k<heightmap[i].length()-j;k++) {
-					if(EastDrain(heightmap, currentTile, j, i)) {
-						drains = true;
-						break;
-					}
+//					if(EastDrain(heightmap, currentTile, j, i)) {
+//						drains = true;
+//						break;
+//					}
 					if(SouthDrain(heightmap, currentTile, j, i)) {
 						drains = true;
 						break;
@@ -136,6 +136,7 @@ public class FloodFillWeek {
 		
 		for(int i=0;i<yIndex;i++) {
 			int comparisonTile = Integer.parseInt(map[yIndex-i].substring(xIndex, xIndex+1));
+			System.out.println("Tile: " + tile + " Comapared to: " + comparisonTile);
 			if(tile <  comparisonTile) {
 				System.out.println("North Flooded: " + tile + comparisonTile);
 				return false;
@@ -148,6 +149,7 @@ public class FloodFillWeek {
 		
 		for(int i=0;i<yIndex;i++) {
 			int comparisonTile = Integer.parseInt(map[yIndex+i].substring(xIndex, xIndex+1));
+			System.out.println("Tile: " + tile + " Comapared to: " + comparisonTile);
 			if(tile <  comparisonTile) {
 				System.out.println("South Flooded: " + tile + comparisonTile);
 				return false;
@@ -161,6 +163,7 @@ public class FloodFillWeek {
 		
 		for(int i=0;i<map[yIndex].length()-xIndex-1;i++) {
 			int comparisonTile = Integer.parseInt(map[yIndex].substring(xIndex+i, xIndex+i+1));
+			System.out.println("Tile: " + tile + " Comapared to: " + comparisonTile);
 			if(tile <  comparisonTile) {
 				System.out.println("East Flooded: " + tile + comparisonTile);
 				return false;
@@ -174,6 +177,7 @@ public class FloodFillWeek {
 		
 		for(int i=0;i<map[yIndex].length()-xIndex-1;i++) {
 			int comparisonTile = Integer.parseInt(map[yIndex].substring(xIndex-i, xIndex-i+1));
+			System.out.println("Tile: " + tile + " Comapared to: " + comparisonTile);
 			if(tile <  comparisonTile) {
 				System.out.println("West Flooded: " + tile + comparisonTile);
 				return false;
