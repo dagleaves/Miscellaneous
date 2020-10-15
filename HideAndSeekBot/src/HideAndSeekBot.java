@@ -15,7 +15,7 @@ public class HideAndSeekBot {
 	public static final char GOAL = '_';
 	
 	public static void main(String[] args) {
-		Scanner keyboard = new Scanner();
+		Scanner keyboard = new Scanner(System.in);
 		Random r = new Random();
 		
 		int pX = 0;
