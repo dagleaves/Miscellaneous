@@ -66,13 +66,38 @@ public class HSGame {
 				Board board = new Board();
 				boards.add(board);
 			}
+			Board currentBoard = boards.get(games-1);
+			String temperature = boards.get(games-1).getTemperature();
+			System.out.println("Win: " + boards.get(games-1).checkWin());
+			System.out.println("Colder: " + (temperature.equalsIgnoreCase("colder")? "true" : "false"));
+			keyboard.nextLine();
 			
 			//Bot
 			boolean win = false;
-			while(!win) {
-				
+			while(true) {
+				for(int j=0; j<currentBoard.getBoardSize();j++) {
+					currentBoard.move(1, 0);
+					if(currentBoard.checkWin())
+						break;
+				}
+				if(currentBoard.checkWin())
+					break;
+				currentBoard.move(0, 1);
+				if(currentBoard.checkWin())
+					break;
+				for(int j=0; j<currentBoard.getBoardSize();j++) {
+					currentBoard.move(-1, 0);
+					if(currentBoard.checkWin())
+						break;
+				}
+				if(currentBoard.checkWin())
+					break;
+				currentBoard.move(0, 1);
+				if(currentBoard.checkWin())
+					break;
 			}
-			
+			System.out.println("Win");
+			quit = true;
 		}
 		keyboard.close();
 	}
