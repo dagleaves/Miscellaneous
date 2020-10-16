@@ -11,6 +11,7 @@ public class Board {
 	private int pY;
 	private int gX;
 	private int gY;
+	private boolean won = false;
 	
 	private char[][] board;
 	
@@ -21,6 +22,8 @@ public class Board {
 	
 	public Board() {
 		this.board_size = 10;
+		this.cold_dist = (this.board_size/2)*(this.board_size/2);
+		this.warm_dist = (this.board_size/4)*(this.board_size/4);
 		this.pX = 0;
 		this.pY = 0;
 		this.setGoal();
@@ -31,6 +34,8 @@ public class Board {
 	
 	public Board(int size) {
 		this.board_size = size;
+		this.cold_dist = (this.board_size/2)*(this.board_size/2);
+		this.warm_dist = (this.board_size/4)*(this.board_size/4);
 		this.pX = 0;
 		this.pY = 0;
 		this.setGoal();
@@ -39,6 +44,8 @@ public class Board {
 	
 	public Board(int startX, int startY) {
 		this.board_size = 10;
+		this.cold_dist = (this.board_size/2)*(this.board_size/2);
+		this.warm_dist = (this.board_size/4)*(this.board_size/4);
 		this.pX = startX;
 		this.pY = startY;
 		this.setGoal();
@@ -47,6 +54,8 @@ public class Board {
 	
 	public Board(int size, int startX, int startY) {
 		this.board_size = size;
+		this.cold_dist = (this.board_size/2)*(this.board_size/2);
+		this.warm_dist = (this.board_size/4)*(this.board_size/4);
 		this.pX = startX;
 		this.pY = startY;
 		this.setGoal();
@@ -72,7 +81,7 @@ public class Board {
 		System.out.println(this);
 	}
 	
-	public boolean move(int x, int y) {
+	public void move(int x, int y) {
 		if(x < -1 || x > 1 || y < -1 || y > 1) {
 			System.out.println("Invalid value");
 			this.updateBoard(0, 0);
@@ -80,7 +89,8 @@ public class Board {
 		else {
 			this.updateBoard(x, y);
 		}
-		return this.checkWin();
+		System.out.println("Win: " + this.checkWin());
+		System.out.println("Temperature: " + this.getTemperature());
 	}
 	
 	private void updateBoard(int x, int y) {
@@ -97,24 +107,24 @@ public class Board {
 		if(this.pX < 0) {	//Too far left
 			this.pX = 0;
 		}
-		else if(this.pX > this.board_size-1) {	//Too far right
-			this.pX = this.board_size-1;
+		else if(this.pX > this.board.length-1) {	//Too far right
+			this.pX = this.board.length-1;
 		}
 		if(this.pY < 0) {	//Too far up
 			this.pY = 0;
 		}
-		else if(this.pY > this.board_size-1) {	//Too far down
-			this.pY = this.board_size-1;
+		else if(this.pY > this.board.length-1) {	//Too far down
+			this.pY = this.board.length-1;
 		}
 		this.board[this.pX][this.pY] = Board.PLAYER;	//Update board's player location
 	}
 	
-	private boolean checkWin() {
+	public boolean checkWin() {
 		return(this.pX == this.gX && this.pY == this.gY);
 	}
 	
 	public int getBoardSize() {
-		return this.board_size;
+		return this.board.length;
 	}
 	
 	public int getPlayerX() {
@@ -139,6 +149,9 @@ public class Board {
 	
 	private void updateTemperature() {
 		int distance = (this.pX-this.gX)*(this.pX-this.gX) + (this.pY-this.gY)*(this.pY-this.gY);
+		System.out.println("Colder: " + this.cold_dist);
+		System.out.println("Warmer: " + this.warm_dist);
+		System.out.println("Distance = " + distance);
 		if(distance > this.cold_dist) {
 			this.temperature = "colder";
 		}
