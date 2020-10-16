@@ -4,8 +4,9 @@
 import java.util.Random;
 public class Board {
 	private int board_size;
-	private int COLD_DIST = (board_size/2)*(board_size/2);
-	private int WARM_DIST = (board_size/4)*(board_size/4);
+	private String temperature;
+	private int cold_dist = (board_size/2)*(board_size/2);
+	private int warm_dist = (board_size/4)*(board_size/4);
 	private int pX;
 	private int pY;
 	private int gX;
@@ -36,18 +37,18 @@ public class Board {
 		this.initBoard();
 	}
 	
-	public Board(int x, int y) {
+	public Board(int startX, int startY) {
 		this.board_size = 10;
-		this.pX = x;
-		this.pY = y;
+		this.pX = startX;
+		this.pY = startY;
 		this.setGoal();
 		this.initBoard();
 	}
 	
-	public Board(int size, int x, int y) {
+	public Board(int size, int startX, int startY) {
 		this.board_size = size;
-		this.pX = x;
-		this.pY = y;
+		this.pX = startX;
+		this.pY = startY;
 		this.setGoal();
 		this.initBoard();
 	}
@@ -61,11 +62,55 @@ public class Board {
 	private void initBoard() {
 		for(int i=0;i<this.board.length;i++) {
 			for(int j=0;j<this.board[i].length;j++) {
-				this.board[j][i] = EMPTY;
+				this.board[j][i] = Board.EMPTY;
 			}
 		}
-		this.board[this.pX][this.pY] = PLAYER;
-		this.board[this.gX][this.gY] = GOAL;
+		this.board[this.pX][this.pY] = Board.PLAYER;
+		this.board[this.gX][this.gY] = Board.GOAL;
+		this.updateTemperature();
+		System.out.println("Game Start");
+		System.out.println(this);
+	}
+	
+	public boolean move(int x, int y) {
+		if(x < -1 || x > 1 || y < -1 || y > 1) {
+			System.out.println("Invalid value");
+			this.updateBoard(0, 0);
+		}
+		else {
+			this.updateBoard(x, y);
+		}
+		return this.checkWin();
+	}
+	
+	private void updateBoard(int x, int y) {
+		this.board[pX][pY] = Board.PATH;
+		//Update player location
+		this.pX += x;
+		this.pY += y;
+		this.checkBounds();			//Verify player is within bounds of board
+		this.updateTemperature();	//Update temperature
+		System.out.println(this);	//Print new board
+	}
+	
+	private void checkBounds() {
+		if(this.pX < 0) {	//Too far left
+			this.pX = 0;
+		}
+		else if(this.pX > this.board_size-1) {	//Too far right
+			this.pX = this.board_size-1;
+		}
+		if(this.pY < 0) {	//Too far up
+			this.pY = 0;
+		}
+		else if(this.pY > this.board_size-1) {	//Too far down
+			this.pY = this.board_size-1;
+		}
+		this.board[this.pX][this.pY] = Board.PLAYER;	//Update board's player location
+	}
+	
+	private boolean checkWin() {
+		return(this.pX == this.gX && this.pY == this.gY);
 	}
 	
 	public int getBoardSize() {
@@ -88,6 +133,23 @@ public class Board {
 		return this.gY;
 	}
 	
+	public String getTemperature() {
+		return this.temperature;
+	}
+	
+	private void updateTemperature() {
+		int distance = (this.pX-this.gX)*(this.pX-this.gX) + (this.pY-this.gY)*(this.pY-this.gY);
+		if(distance > this.cold_dist) {
+			this.temperature = "colder";
+		}
+		else if(distance > this.warm_dist) {
+			this.temperature = "warmer";
+		}
+		else {
+			this.temperature = "hotter";
+		}
+	}
+	
 	public String toString() {
 		String boardString = "";
 		for(int i=0;i<this.board.length;i++) {
@@ -96,7 +158,6 @@ public class Board {
 			}
 			boardString += "\n";
 		}
-		boardString = boardString.substring(0, boardString.length()-1);
 		return boardString;
 	}
 }
