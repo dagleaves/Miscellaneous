@@ -1,6 +1,7 @@
 /*
  * Written by Daniel Gleaves
  */
+import java.util.Arrays;
 import java.util.Scanner;
 public class DonaldsPapers {
 	
@@ -24,19 +25,7 @@ public class DonaldsPapers {
 		}
 		avg = sum/intGrades.length;
 		//Bubble Sort
-		boolean hasSwapped = true;
-		while(hasSwapped) {
-			hasSwapped = false;
-			for(int i = 0; i<intGrades.length-1; i++) {
-				if(intGrades[i] > intGrades[i+1]) {
-					//Swap
-					int temp = intGrades[i];
-					intGrades[i] = intGrades[i+1];
-					intGrades[i+1] = temp;
-					hasSwapped = true;
-				}
-			}
-		}
+		Arrays.sort(intGrades);
 		//Find median
 		double median;
 		int half = intGrades.length/2;
