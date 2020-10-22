@@ -3,10 +3,10 @@
  */
 import java.util.Random;
 public class Board {
-	private int board_size;
+	private int boardSize;
 	private String temperature;
-	private int cold_dist = (board_size/2)*(board_size/2);
-	private int warm_dist = (board_size/4)*(board_size/4);
+	private int cold_dist;
+	private int warm_dist;
 	private int pX;
 	private int pY;
 	private int gX;
@@ -21,21 +21,21 @@ public class Board {
 	private static final char GOAL = '_';
 	
 	public Board() {
-		this.board_size = 10;
-		this.cold_dist = (this.board_size/2)*(this.board_size/2);
-		this.warm_dist = (this.board_size/4)*(this.board_size/4);
+		this.boardSize = 10;
+		this.cold_dist = (this.boardSize/2)*(this.boardSize/2);
+		this.warm_dist = (this.boardSize/4)*(this.boardSize/4);
 		this.pX = 0;
 		this.pY = 0;
 		this.setGoal();
-		this.board = new char[this.board_size][this.board_size];
+		this.board = new char[this.boardSize][this.boardSize];
 		this.initBoard();
 		
 	}
 	
 	public Board(int size) {
-		this.board_size = size;
-		this.cold_dist = (this.board_size/2)*(this.board_size/2);
-		this.warm_dist = (this.board_size/4)*(this.board_size/4);
+		this.boardSize = size;
+		this.cold_dist = (this.boardSize/2)*(this.boardSize/2);
+		this.warm_dist = (this.boardSize/4)*(this.boardSize/4);
 		this.pX = 0;
 		this.pY = 0;
 		this.setGoal();
@@ -43,9 +43,9 @@ public class Board {
 	}
 	
 	public Board(int startX, int startY) {
-		this.board_size = 10;
-		this.cold_dist = (this.board_size/2)*(this.board_size/2);
-		this.warm_dist = (this.board_size/4)*(this.board_size/4);
+		this.boardSize = 10;
+		this.cold_dist = (this.boardSize/2)*(this.boardSize/2);
+		this.warm_dist = (this.boardSize/4)*(this.boardSize/4);
 		this.pX = startX;
 		this.pY = startY;
 		this.setGoal();
@@ -53,9 +53,9 @@ public class Board {
 	}
 	
 	public Board(int size, int startX, int startY) {
-		this.board_size = size;
-		this.cold_dist = (this.board_size/2)*(this.board_size/2);
-		this.warm_dist = (this.board_size/4)*(this.board_size/4);
+		this.boardSize = size;
+		this.cold_dist = (this.boardSize/2)*(this.boardSize/2);
+		this.warm_dist = (this.boardSize/4)*(this.boardSize/4);
 		this.pX = startX;
 		this.pY = startY;
 		this.setGoal();
@@ -63,9 +63,11 @@ public class Board {
 	}
 	
 	private void setGoal() {
-		Random r = new Random();
-		this.gX = r.nextInt(this.board_size);
-		this.gY = r.nextInt(this.board_size);
+//		Random r = new Random();
+//		this.gX = r.nextInt(this.board_size);
+//		this.gY = r.nextInt(this.board_size);
+		this.gX = this.boardSize-1;
+		this.gY = this.boardSize-1;
 	}
 	
 	private void initBoard() {
