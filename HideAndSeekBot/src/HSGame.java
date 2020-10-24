@@ -76,31 +76,6 @@ public class HSGame {
 			System.out.println("Colder: " + (temperature.equalsIgnoreCase("colder")? "true" : "false"));
 			keyboard.nextLine();
 			
-			//Naive Bot
-//			boolean win = false;
-//			while(true) {
-//				for(int j=0; j<currentBoard.getBoardSize();j++) {
-//					currentBoard.move(1, 0);
-//					if(currentBoard.checkWin())
-//						break;
-//				}
-//				if(currentBoard.checkWin())
-//					break;
-//				currentBoard.move(0, 1);
-//				if(currentBoard.checkWin())
-//					break;
-//				for(int j=0; j<currentBoard.getBoardSize();j++) {
-//					currentBoard.move(-1, 0);
-//					if(currentBoard.checkWin())
-//						break;
-//				}
-//				if(currentBoard.checkWin())
-//					break;
-//				currentBoard.move(0, 1);
-//				if(currentBoard.checkWin())
-//					break;
-//			}
-			
 			//Slightly Less Naive Bot
 			//----------------------Find Warmer----------------------\\
 			boolean warmer = false;
