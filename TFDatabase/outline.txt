@@ -1,0 +1,33 @@
+TFDatabase Outline:
+
+GUI - Low Priority:
+    1. Display collection dataframe
+        - Search collection
+        - Sort collection
+        - Filter collection
+        - View TF info
+        - Remove TF from collection
+    2. View total database
+        - Search database
+        - Sort database
+        - Filter database
+        - View TF info
+        - View if in collection
+        - Add TF to collection
+    3. Refresh TF database
+
+Backend - High Priority:
+    1. Scrape TF Data
+        - Store in CSV
+        - Either run on launch or run on manual button press or both
+    2. Dataframe controller
+        - Collection
+        - Database
+        - Search
+        - Sort
+        - Filter
+        - Add to collection
+        - Remove from collection
+        - Store collection in CSV
+            - Store TF Data in collection CSV or obtain from database?
+    3.
